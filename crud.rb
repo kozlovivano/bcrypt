@@ -1,18 +1,3 @@
-# require 'bcrypt'
-
-# my_password = BCrypt::Password.create("my password")
-# puts my_password
-
-# other_password = BCrypt::Password.create("my password")
-# puts other_password
-
-# another_password = BCrypt::Password.create("my password")
-# puts another_password
-
-# my_password = BCrypt::Password.new("$2a$12$obKZak2Os7sGIrsmP7NSIOIOKmmHXt6513u.GdevRKkIRR0v4I/Pu")
-
-# puts my_password
-
 require 'bcrypt'
 
 users = [
