@@ -1,24 +1,31 @@
-require 'bcrypt'
+module Crud
 
-users = [
-  { username: "laguna", password: "laguna.password.123" },
-  { username: "alexey", password: "alexey.password.123" },
-  { username: "toshimasa", password: "toshimasa.password.123" }
-]
+  require 'bcrypt'
+  puts "Module CRUD activated"
 
-def create_hash_digest(password)
-  BCrypt::Password.create(password)
-end
-
-def verifiy_hash_digest(password)
-  BCrypt::Password.new(password)
-end
-
-def create_secure_users(list_of_users)
-  list_of_users.each do |user_record|
-    user_record[:password] = create_hash_digest(user_record[:password])
+  def self.create_hash_digest(password)
+    BCrypt::Password.create(password)
   end
-  list_of_users
-end
 
-puts create_secure_users(users)
+  def self.verify_hash_digest(password)
+    BCrypt::Password.new(password)
+  end
+
+  def self.create_secure_users(list_of_users)
+    list_of_users.each do |user_record|
+      user_record[:password] = create_hash_digest(user_record[:password])
+    end
+    list_of_users
+  end
+
+  def self.authenticate_user(username, password, list_of_users)
+    list_of_users.each do |user_record|
+      return user_record if user_record[:username] == username && verify_hash_digest(user_record[:password]) == password
+    end
+    "Credentials are not correct"
+  end
+
+end
+# new_users = create_secure_users(users)
+
+# puts authenticate_user("alexey", "alexeys.password.123", new_users)
